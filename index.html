@@ -1,781 +1,1177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Magnum Courses</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --blue:#4fc3f7; --orange:#ff9800; --pink:#e91e8c;
-  --bg:#f5f0eb; --white:#fff; --dark:#1a1a2e;
-  --text:#2d2d3a; --dim:#6b6b80; --border:#e8e2da;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnum Courses</title>
+  <style>
+    /* Premium Brand Palette Configuration */
+    :root {
+      --blue: #4fc3f7;
+      --orange: #ff9800;
+      --pink: #e91e8c;
+      --bg: #f8f6f2; /* Professional warm beige */
+      --white: #ffffff;
+      --dark: #1a1a2e;
+      --text: #2d2d3a;
+      --dim: #6b6b80;
+      --border: #e8e2da;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-/* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 5vw;
-  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;
-  background:rgba(245,240,235,0.97);backdrop-filter:blur(10px);}
-.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--dark);
-  text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;border:none;background:none;}
-.logo-stripes{display:flex;gap:3px;height:20px;align-items:flex-end;}
-.logo-stripes span{width:5px;border-radius:3px;}
-.logo-stripes span:nth-child(1){background:var(--blue);height:100%;}
-.logo-stripes span:nth-child(2){background:var(--orange);height:72%;}
-.logo-stripes span:nth-child(3){background:var(--pink);height:50%;}
-.nav-back{display:none;align-items:center;gap:7px;background:none;border:none;cursor:pointer;
-  font-size:.88rem;color:var(--dim);font-weight:500;font-family:'Inter',sans-serif;}
-.nav-back:hover{color:var(--dark);}
-.nav-back svg{width:16px;height:16px;}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* HERO */
-.hero{padding:4rem 5vw 3rem;position:relative;overflow:hidden;}
-.hero::after{content:'';position:absolute;bottom:0;left:5vw;width:150px;height:5px;border-radius:3px;
-  background:linear-gradient(90deg,var(--blue) 33%,var(--orange) 33% 66%,var(--pink) 66%);}
-.hero-eye{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:.8rem;font-weight:600;}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,6vw,3rem);font-weight:800;line-height:1.15;color:var(--dark);margin-bottom:.9rem;word-break:break-word;overflow-wrap:break-word;}
-.hero h1 .b{color:var(--blue);} .hero h1 .o{color:var(--orange);} .hero h1 .p{color:var(--pink);}
-.hero p{color:var(--dim);max-width:440px;font-size:.95rem;}
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-/* CATEGORY TABS */
-.cat-tabs{display:flex;gap:.5rem;padding:2rem 5vw .5rem;flex-wrap:wrap;}
-.cat-tab{padding:.55rem 1.4rem;border-radius:99px;border:2px solid var(--border);background:var(--white);
-  font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--dim);font-family:'Inter',sans-serif;}
-.cat-tab:hover{border-color:var(--dark);color:var(--dark);}
-.cat-tab.active{color:var(--white);border-color:transparent;}
+    h1, h2, h3, h4 {
+      color: var(--dark);
+      word-break: break-word;
+      font-weight: 700;
+    }
 
-/* PLAYLIST GRID */
-.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.3rem;padding:1.5rem 5vw 5rem;}
-.pl-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;
-  cursor:pointer;transition:box-shadow .25s,transform .25s;display:flex;flex-direction:column;}
-.pl-card:hover{box-shadow:0 8px 28px rgba(26,26,46,.11);transform:translateY(-3px);}
-.pl-card-bar{height:5px;}
-.pl-card-top{height:110px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
-.pl-card-body{padding:1.1rem 1.3rem 1.4rem;flex:1;display:flex;flex-direction:column;gap:.35rem;}
-.pl-card-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--dark);}
-.pl-card-body p{font-size:.83rem;color:var(--dim);flex:1;}
-.pl-meta{display:flex;gap:.9rem;margin-top:.5rem;flex-wrap:wrap;}
-.pl-meta span{font-size:.74rem;color:var(--dim);display:flex;align-items:center;gap:3px;}
-.pl-arrow{margin-top:.8rem;display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:600;}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* ── PLAYLIST PAGE ── */
-#page-playlist{display:none;}
-.pl-hero{padding:2.8rem 5vw 2.2rem;border-bottom:1px solid var(--border);background:var(--white);}
-.pl-hero-eye{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:.6rem;}
-.pl-hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.4rem,5vw,2.4rem);font-weight:800;color:var(--dark);margin-bottom:.6rem;}
-.pl-hero p{color:var(--dim);font-size:.93rem;max-width:500px;}
-.pl-hero-stats{display:flex;gap:1.8rem;margin-top:1rem;flex-wrap:wrap;}
-.pl-hero-stats span{font-size:.8rem;color:var(--dim);display:flex;align-items:center;gap:4px;font-weight:500;}
-.pl-hero-stats strong{color:var(--dark);}
+    /* Fixed Navigation Bar */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background-color: rgba(248, 246, 242, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 max(2rem, calc((100% - 1200px) / 2));
+    }
 
-/* SECTIONS */
-.sections-wrap{padding:2rem 5vw 3rem;display:flex;flex-direction:column;gap:2rem;}
-.sec-block{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-.sec-hdr{padding:1rem 1.4rem;display:flex;align-items:center;gap:.9rem;border-bottom:1px solid var(--border);}
-.sec-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--white);flex-shrink:0;}
-.sec-hdr h3{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;color:var(--dark);flex:1;}
+    /* CSS CSS-Only Brand Logo Vectors */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
 
-/* VIDEO LIST */
-.video-item{display:flex;align-items:center;gap:.9rem;padding:.85rem 1.4rem;
-  border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;text-decoration:none;}
-.video-item:hover{background:#faf8f5;}
-.vid-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.vid-icon svg{fill:#fff;margin-left:2px;}
-.vid-info{flex:1;}
-.vid-info h4{font-size:.88rem;font-weight:600;color:var(--dark);line-height:1.3;}
-.vid-info span{font-size:.74rem;color:var(--dim);}
-.vid-ext{font-size:.72rem;color:var(--dim);white-space:nowrap;}
+    .logo-waves {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      height: 32px;
+    }
 
-/* QUIZ */
-.quiz-wrap{padding:1.4rem 1.4rem 1.6rem;}
-.quiz-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.93rem;color:var(--dark);
-  margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;}
-.quiz-q{margin-bottom:1.1rem;}
-.quiz-q p{font-size:.88rem;font-weight:600;color:var(--dark);margin-bottom:.6rem;}
-.quiz-options{display:flex;flex-direction:column;gap:.45rem;}
-.quiz-opt{padding:.55rem .95rem;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);
-  cursor:pointer;font-size:.84rem;color:var(--text);transition:all .15s;text-align:left;font-family:'Inter',sans-serif;}
-.quiz-opt:hover:not(:disabled){background:var(--white);}
-.quiz-opt.correct{border-color:#1a7a4a;background:#e6faf0;color:#1a7a4a;font-weight:600;}
-.quiz-opt.wrong{border-color:#c0392b;background:#fdecea;color:#c0392b;}
-.quiz-opt.selected{background:var(--white);}
-.quiz-submit{margin-top:.7rem;padding:.5rem 1.3rem;border-radius:8px;border:none;cursor:pointer;
-  font-size:.83rem;font-weight:600;color:var(--white);transition:opacity .2s;font-family:'Inter',sans-serif;}
-.quiz-submit:disabled{opacity:.35;cursor:not-allowed;}
-.quiz-submit:hover:not(:disabled){opacity:.85;}
-.quiz-result{margin-top:.9rem;padding:.7rem .95rem;border-radius:8px;font-size:.86rem;font-weight:600;display:none;}
-.quiz-result.pass{background:#e6faf0;color:#1a7a4a;display:block;}
-.quiz-result.fail{background:#fdecea;color:#c0392b;display:block;}
+    .logo-wave-item {
+      width: 6px;
+      height: 28px;
+      border-radius: 4px;
+      transform: skewY(-20deg); /* Mimics the distinctive s-wave curve of your brand logo */
+    }
 
-/* FINAL EXAM */
-.final-wrap{background:var(--white);border:2px solid var(--border);border-radius:16px;
-  overflow:hidden;margin:0 5vw 5rem;}
-.final-hdr{padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.8rem;border-bottom:1px solid var(--border);}
-.final-hdr h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--dark);}
-.final-body{padding:1.4rem 1.4rem 1.6rem;}
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
 
-/* FOOTER */
-footer{background:var(--dark);padding:1.8rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-footer p{font-size:.8rem;color:#8888aa;}
-.footer-stripes{display:flex;gap:4px;}
-.footer-stripes span{display:inline-block;width:26px;height:4px;border-radius:2px;}
-.footer-stripes span:nth-child(1){background:var(--blue);}
-.footer-stripes span:nth-child(2){background:var(--orange);}
-.footer-stripes span:nth-child(3){background:var(--pink);}
+    /* Navigation Tabs Driven to the Far Right */
+    .nav-right-zone {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-@media(max-width:600px){
-  .hero{padding:3rem 5vw 2.5rem;}
-  .pl-grid{grid-template-columns:1fr;}
-  .cat-tabs{gap:.4rem;}
-  .final-wrap{margin:0 4vw 4rem;}
-}
-</style>
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tab-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      color: var(--dim);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab-pill:hover {
+      color: var(--dark);
+      background: rgba(26, 26, 46, 0.04);
+    }
+
+    /* Active State Enforcements */
+    .nav-tab-pill.active[data-color="dark"] { background: var(--dark); color: var(--white); }
+    .nav-tab-pill.active[data-color="blue"] { background: var(--blue); color: var(--dark); }
+    .nav-tab-pill.active[data-color="orange"] { background: var(--orange); color: var(--dark); }
+    .nav-tab-pill.active[data-color="pink"] { background: var(--pink); color: var(--white); }
+
+    .btn-back {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+      background: var(--dark);
+      color: var(--white);
+      border-color: var(--dark);
+    }
+
+    /* Structural Grid Boundaries */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      flex: 1;
+    }
+
+    .page-view {
+      display: none;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    /* Professional Center-Aligned Hero Layout */
+    .hero {
+      padding: 5rem 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+      max-width: 850px;
+    }
+
+    .hero-desc {
+      font-size: 1.25rem;
+      color: var(--dim);
+      max-width: 650px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-stripe-line {
+      display: flex;
+      height: 5px;
+      width: 180px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .hero-stripe-line span {
+      flex: 1;
+      height: 100%;
+    }
+
+    /* Academic Course Grid System */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .course-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(26, 26, 46, 0.02);
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(26, 26, 46, 0.06);
+    }
+
+    .card-accent-bar {
+      height: 6px;
+      width: 100%;
+    }
+
+    .card-body {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-emoji-box {
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-title {
+      font-size: 1.45rem;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    .badge-level {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--dark);
+      width: fit-content;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--dim);
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+      font-size: 0.88rem;
+      color: var(--dim);
+      font-weight: 500;
+    }
+
+    .card-footer-meta {
+      display: flex;
+      gap: 12px;
+    }
+
+    .card-arrow {
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease;
+    }
+
+    .course-card:hover .card-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Playlist Metrics Panels */
+    .playlist-hero {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3.5rem;
+    }
+
+    .pl-hero-emoji {
+      font-size: 4.5rem;
+      background: var(--white);
+      padding: 1.75rem;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      line-height: 1;
+    }
+
+    .pl-hero-info {
+      flex: 1;
+    }
+
+    .pl-title {
+      font-size: 2.8rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+    }
+
+    .pl-desc {
+      font-size: 1.15rem;
+      color: var(--dim);
+      margin-bottom: 1.75rem;
+      max-width: 750px;
+    }
+
+    .pl-stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .pl-stat-node {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pl-stat-val {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .pl-stat-lbl {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Syllabus Flow Segments */
+    .curriculum-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      max-width: 900px;
+      margin: 0 auto 5rem auto;
+    }
+
+    .section-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-index-ring {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .video-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 2.5rem;
+    }
+
+    .video-node {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .video-node:hover {
+      background: #faf8f5;
+      border-color: var(--dim);
+    }
+
+    .video-play-ring {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .video-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .video-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+
+    .video-runtime {
+      font-size: 0.9rem;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Formative Diagnostic Components */
+    .assessment-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .assessment-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--dim);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .quiz-item {
+      margin-bottom: 2rem;
+    }
+
+    .quiz-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .quiz-prompt {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+      color: var(--dark);
+    }
+
+    .quiz-options-matrix {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 14px 20px;
+      border-radius: 10px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: var(--font);
+      color: var(--text);
+      transition: all 0.2s ease;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--dim);
+      background: #faf8f5;
+    }
+
+    /* Final Exam Module */
+    .capstone-card {
+      background: var(--white);
+      border: 2px solid var(--dark);
+      border-radius: 24px;
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      margin-top: 5rem;
+      box-shadow: 0 10px 30px rgba(26,26,46,0.04);
+    }
+
+    .capstone-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .capstone-title {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .capstone-desc {
+      font-size: 1.1rem;
+      color: var(--dim);
+      margin-bottom: 3rem;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Code-Only Footer Architecture */
+    .footer-bar {
+      background-color: var(--dark);
+      color: var(--white);
+      padding: 2.5rem max(2rem, calc((100% - 1200px) / 2));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Pure code-based brand marks in footer context */
+    .footer-logo-simulation {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      height: 20px;
+      opacity: 0.8;
+    }
+
+    .footer-logo-simulation span {
+      width: 4px;
+      height: 18px;
+      border-radius: 2px;
+      transform: skewY(-20deg);
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    .footer-stripes {
+      display: flex;
+      gap: 4px;
+      width: 45px;
+      height: 6px;
+    }
+
+    .footer-stripes span {
+      flex: 1;
+      height: 100%;
+      border-radius: 1px;
+    }
+
+    /* Screen Width Breakpoint Adjustments */
+    @media (max-width: 900px) {
+      .nav-bar {
+        padding: 0 1.5rem;
+      }
+      .nav-tabs {
+        display: none; /* Auto-collapse layout nodes safely on smaller devices */
+      }
+      .playlist-hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .pl-stats-row {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body { padding-top: 70px; }
+      .nav-bar { height: 70px; }
+      .logo-text { font-size: 1.25rem; }
+      .hero { padding: 3rem 0; }
+      .hero h1 { font-size: 2.4rem; }
+      .container { padding: 1.5rem 1rem; }
+      .grid-layout { grid-template-columns: 1fr; }
+      .section-block { padding: 1.5rem; }
+      .video-details { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <button class="nav-logo" id="nav-logo" onclick="showHome()">
-    <div class="logo-stripes"><span></span><span></span><span></span></div>
-    magnum courses
-  </button>
-  <button class="nav-back" id="nav-back" onclick="showHome()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back
-  </button>
-</nav>
-
-<!-- ══ HOME ══ -->
-<div id="page-home">
-  <section class="hero">
-    <p class="hero-eye">Coding · Electronics · Robotics</p>
-    <h1>Learn. <span class="b">Code.</span><br><span class="o">Build.</span> <span class="p">Create.</span></h1>
-    <p>Structured playlists, hands-on videos, and quizzes after every section.</p>
-  </section>
-
-  <div class="cat-tabs" id="cat-tabs"></div>
-  <div class="pl-grid" id="pl-grid"></div>
-</div>
-
-<!-- ══ PLAYLIST ══ -->
-<div id="page-playlist">
-  <div class="pl-hero" id="pl-hero"></div>
-  <div class="sections-wrap" id="sections-wrap"></div>
-  <div class="final-wrap" id="final-wrap"></div>
-</div>
-
-<footer>
-  <p>© 2026 Magnum Egypt</p>
-  <div class="footer-stripes"><span></span><span></span><span></span></div>
-</footer>
-
-<script>
-// ═══════════════════════════════════════════════
-//  DATA  — replace links & questions with yours
-// ═══════════════════════════════════════════════
-const data = {
-  categories: [
-    { id:"python",      label:"🐍 Python",      color:"blue",   accent:"#4fc3f7" },
-    { id:"scratch",     label:"🎮 Scratch",     color:"orange", accent:"#ff9800" },
-    { id:"electronics", label:"⚡ Electronics", color:"pink",   accent:"#e91e8c" },
-  ],
-  playlists: [
-    // ── PYTHON ──
-    {
-      id:"py1", cat:"python", emoji:"🐍", color:"blue", accent:"#4fc3f7",
-      title:"Python — Level 1", subtitle:"Beginner",
-      desc:"Variables, conditions, loops, and your first real programs.",
-      sections:[
-        {
-          title:"Getting Started",
-          videos:[
-            { title:"What is Python & Setup",        dur:"8:24",  link:"https://www.youtube.com/watch?v=kqtD5dpn9C8" },
-            { title:"Variables & Data Types",         dur:"12:10", link:"https://www.youtube.com/watch?v=cKPlPJyQrt4" },
-            { title:"Input & Output",                 dur:"9:05",  link:"https://www.youtube.com/watch?v=f4KOjWS_KZs" },
-          ],
-          quiz:[
-            { q:"Which keyword defines a variable in Python?", opts:["var","let","No keyword needed","define"], ans:2 },
-            { q:"What does `print()` do?",                     opts:["Reads input","Displays output","Creates a file","Loops"], ans:1 },
-          ]
-        },
-        {
-          title:"Conditions & Loops",
-          videos:[
-            { title:"If / Elif / Else",               dur:"11:33", link:"https://www.youtube.com/watch?v=94UHCEmprCY" },
-            { title:"For Loops",                      dur:"10:20", link:"https://www.youtube.com/watch?v=9Os0o3wzS_I" },
-            { title:"While Loops",                    dur:"9:44",  link:"https://www.youtube.com/watch?v=6iF8Xb7Z3wQ" },
-          ],
-          quiz:[
-            { q:"What is the output of `range(3)`?",            opts:["1,2,3","0,1,2","0,1,2,3","1,2"], ans:1 },
-            { q:"Which loop runs at least once?",               opts:["for","while","do-while","both"], ans:1 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Python is:",                                        opts:["Compiled","Interpreted","Both","Neither"], ans:1 },
-        { q:"Which is a valid variable name?",                   opts:["2name","my_name","my-name","my name"], ans:1 },
-        { q:"Output of `print(2**3)`:",                         opts:["6","8","9","Error"], ans:1 },
-        { q:"Which operator checks equality?",                   opts:["=","=>","==","==="], ans:2 },
-      ]
-    },
-    {
-      id:"py2", cat:"python", emoji:"🐍🔥", color:"blue", accent:"#4fc3f7",
-      title:"Python — Level 2", subtitle:"Intermediate",
-      desc:"Functions, lists, dictionaries, OOP, and file handling.",
-      sections:[
-        {
-          title:"Functions & Scope",
-          videos:[
-            { title:"Defining Functions",             dur:"11:45", link:"https://www.youtube.com/watch?v=9Os0o3wzS_I" },
-            { title:"Parameters & Return Values",     dur:"10:00", link:"https://www.youtube.com/watch?v=94UHCEmprCY" },
-            { title:"Lambda Functions",               dur:"7:30",  link:"https://www.youtube.com/watch?v=Ob9rY6PQMfI" },
-          ],
-          quiz:[
-            { q:"A function with no return returns:", opts:["0","False","None","Error"], ans:2 },
-            { q:"Keyword for anonymous functions:",   opts:["anon","def","lambda","func"], ans:2 },
-          ]
-        },
-        {
-          title:"Lists & Dictionaries",
-          videos:[
-            { title:"Lists & List Methods",           dur:"13:20", link:"https://www.youtube.com/watch?v=ohCDWZgNIU0" },
-            { title:"Dictionaries",                   dur:"12:05", link:"https://www.youtube.com/watch?v=daefaLgNkw0" },
-            { title:"List Comprehensions",            dur:"9:10",  link:"https://www.youtube.com/watch?v=3dt4OGnU5sM" },
-          ],
-          quiz:[
-            { q:"Access last item of list `a`:",      opts:["a[-1]","a[last]","a[end]","a.last()"], ans:0 },
-            { q:"Dictionary values accessed by:",     opts:["Index","Key","Position","Slice"], ans:1 },
-          ]
-        },
-        {
-          title:"OOP Basics",
-          videos:[
-            { title:"Classes & Objects",              dur:"15:00", link:"https://www.youtube.com/watch?v=JeznW_7DlB0" },
-            { title:"__init__ & self",                dur:"11:30", link:"https://www.youtube.com/watch?v=apACNr7DC_s" },
-            { title:"Inheritance",                    dur:"13:00", link:"https://www.youtube.com/watch?v=Ej_02ICOIgs" },
-          ],
-          quiz:[
-            { q:"__init__ is called:",                opts:["Manually","On delete","On object creation","On import"], ans:2 },
-            { q:"'self' refers to:",                  opts:["The class","The module","The current object","The parent"], ans:2 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Which method adds to a list?",           opts:["add()","insert()","append()","push()"], ans:2 },
-        { q:"OOP stands for:",                        opts:["Object Oriented Programming","Open Output Protocol","Optional Object Parameters","None"], ans:0 },
-        { q:"A child class inherits from:",           opts:["Any function","Its parent class","Built-in only","Module"], ans:1 },
-        { q:"List comprehension syntax:",             opts:["[x for x in list]","(x for x in list)","[for x in list: x]","{x for x in list}"], ans:0 },
-      ]
-    },
-
-    // ── SCRATCH ──
-    {
-      id:"sc1", cat:"scratch", emoji:"🎮", color:"orange", accent:"#ff9800",
-      title:"Scratch — Level 1", subtitle:"Beginner",
-      desc:"Sprites, motion, events, and your first animation.",
-      sections:[
-        {
-          title:"Scratch Interface",
-          videos:[
-            { title:"Tour of Scratch",                dur:"6:15",  link:"https://scratch.mit.edu" },
-            { title:"Sprites & Costumes",             dur:"9:30",  link:"https://scratch.mit.edu" },
-            { title:"Backdrops & Sounds",             dur:"7:55",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"A character in Scratch is called:", opts:["Actor","Object","Sprite","Block"], ans:2 },
-            { q:"Costumes are used to:",              opts:["Change sound","Change appearance","Move sprite","Set speed"], ans:1 },
-          ]
-        },
-        {
-          title:"Motion & Events",
-          videos:[
-            { title:"Motion Blocks",                  dur:"8:20",  link:"https://scratch.mit.edu" },
-            { title:"Event Blocks",                   dur:"7:10",  link:"https://scratch.mit.edu" },
-            { title:"Green Flag & Stop",              dur:"5:40",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"The green flag block:",              opts:["Stops program","Starts program","Loops forever","Resets score"], ans:1 },
-            { q:"'When key pressed' is a(n) ____ block:", opts:["Motion","Event","Control","Looks"], ans:1 },
-          ]
-        },
-        {
-          title:"Loops & Looks",
-          videos:[
-            { title:"Repeat & Forever Loops",         dur:"10:12", link:"https://scratch.mit.edu" },
-            { title:"Looks Blocks & Effects",         dur:"8:45",  link:"https://scratch.mit.edu" },
-            { title:"Your First Animation",           dur:"14:00", link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"Forever loop runs:",                 opts:["Once","10 times","Until stopped","Never"], ans:2 },
-            { q:"To animate a sprite you change its:", opts:["Size","Color","Costume","Position"], ans:2 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Scratch is a ___ language:",             opts:["Text-based","Block-based","Binary","Assembly"], ans:1 },
-        { q:"Sprites are stored in:",                 opts:["Backdrop","Stage","Sprite panel","Toolbox"], ans:2 },
-        { q:"Which block changes how a sprite looks?",opts:["Motion","Control","Looks","Sensing"], ans:2 },
-        { q:"To repeat an action 5 times use:",       opts:["Forever","Repeat 5","Wait 5","Loop"], ans:1 },
-      ]
-    },
-    {
-      id:"sc2", cat:"scratch", emoji:"🎮⚡", color:"orange", accent:"#ff9800",
-      title:"Scratch — Level 2", subtitle:"Intermediate",
-      desc:"Variables, user input, conditions, and interactive games.",
-      sections:[
-        {
-          title:"Variables & Input",
-          videos:[
-            { title:"Creating Variables",             dur:"9:00",  link:"https://scratch.mit.edu" },
-            { title:"Ask & Answer Blocks",            dur:"8:30",  link:"https://scratch.mit.edu" },
-            { title:"Showing Variables on Screen",    dur:"6:55",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"Variables in Scratch store:",        opts:["Only numbers","Only text","Both","Images"], ans:2 },
-            { q:"User input is stored in:",           opts:["Variable","Answer block","List","Score"], ans:1 },
-          ]
-        },
-        {
-          title:"Sensing & Conditions",
-          videos:[
-            { title:"If / Else Blocks",               dur:"11:00", link:"https://scratch.mit.edu" },
-            { title:"Sensing Blocks",                 dur:"9:20",  link:"https://scratch.mit.edu" },
-            { title:"Touching Color Detection",       dur:"8:10",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"'Touching [Sprite]?' is a(n):",      opts:["Motion block","Sensing block","Event","Operator"], ans:1 },
-            { q:"If/Else block is in:",               opts:["Looks","Motion","Control","Events"], ans:2 },
-          ]
-        },
-        {
-          title:"Build a Game",
-          videos:[
-            { title:"Score & Lives System",           dur:"13:00", link:"https://scratch.mit.edu" },
-            { title:"Game Over Screen",               dur:"10:40", link:"https://scratch.mit.edu" },
-            { title:"Publishing Your Project",        dur:"5:10",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"To track score you need a:",         opts:["List","Costume","Variable","Sound"], ans:2 },
-            { q:"Broadcasting in Scratch:",           opts:["Plays sound","Sends message to sprites","Moves sprite","Changes color"], ans:1 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Which block sends a message?",           opts:["Say","Broadcast","Ask","Play sound"], ans:1 },
-        { q:"'If on edge, bounce' is a ___ block:",   opts:["Event","Sensing","Motion","Looks"], ans:2 },
-        { q:"Lists in Scratch store:",                opts:["One value","Multiple values","Only numbers","Only sprites"], ans:1 },
-        { q:"To detect mouse click use:",             opts:["Motion block","Event block","Sensing","Operator"], ans:1 },
-      ]
-    },
-    {
-      id:"sc3", cat:"scratch", emoji:"🎮🏆", color:"orange", accent:"#ff9800",
-      title:"Scratch — Level 3", subtitle:"Advanced",
-      desc:"Clones, custom blocks, advanced logic, and polished projects.",
-      sections:[
-        {
-          title:"Clones & Custom Blocks",
-          videos:[
-            { title:"Creating & Deleting Clones",     dur:"12:00", link:"https://scratch.mit.edu" },
-            { title:"Custom Blocks (My Blocks)",      dur:"10:15", link:"https://scratch.mit.edu" },
-            { title:"Passing Parameters to Blocks",   dur:"9:30",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"Clones are useful for:",             opts:["Backgrounds","Multiple copies of sprite","Sounds","Costumes"], ans:1 },
-            { q:"Custom blocks are in:",              opts:["Events","Operators","My Blocks","Control"], ans:2 },
-          ]
-        },
-        {
-          title:"Advanced Logic",
-          videos:[
-            { title:"Nested If Statements",           dur:"11:20", link:"https://scratch.mit.edu" },
-            { title:"Lists & Advanced Operations",    dur:"13:00", link:"https://scratch.mit.edu" },
-            { title:"Timer & Stopwatch",              dur:"8:40",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"Nested ifs allow:",                  opts:["Faster code","Multiple conditions","More sprites","Better sound"], ans:1 },
-            { q:"Timer block resets when:",           opts:["Green flag clicked","Broadcast sent","Sprite deleted","Variable changes"], ans:0 },
-          ]
-        },
-        {
-          title:"Final Project",
-          videos:[
-            { title:"Planning Your Game",             dur:"7:00",  link:"https://scratch.mit.edu" },
-            { title:"Building & Debugging",           dur:"20:00", link:"https://scratch.mit.edu" },
-            { title:"Showcase & Sharing",             dur:"6:00",  link:"https://scratch.mit.edu" },
-          ],
-          quiz:[
-            { q:"Debugging means:",                   opts:["Adding music","Fixing errors","Changing sprites","Publishing"], ans:1 },
-            { q:"Best way to share on Scratch:",      opts:["Email","Download","Publish to Scratch website","USB"], ans:2 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"A clone is:",                            opts:["A new sprite","A copy of a sprite","A sound","A backdrop"], ans:1 },
-        { q:"My Blocks help with:",                   opts:["More sprites","Code reuse","Better graphics","Sounds"], ans:1 },
-        { q:"Nested conditions check:",               opts:["One condition","Multiple conditions","No conditions","Loops"], ans:1 },
-        { q:"To stop all clones use:",                opts:["Delete sprite","Stop all","Delete this clone","Broadcast"], ans:2 },
-      ]
-    },
-
-    // ── ELECTRONICS ──
-    {
-      id:"el1", cat:"electronics", emoji:"⚡", color:"pink", accent:"#e91e8c",
-      title:"Electronics — Level 1", subtitle:"Beginner",
-      desc:"Voltage, current, Ohm's law, and basic components.",
-      sections:[
-        {
-          title:"Circuit Fundamentals",
-          videos:[
-            { title:"Voltage, Current & Resistance",  dur:"13:00", link:"https://www.youtube.com/watch?v=mc979OhitAg" },
-            { title:"Ohm's Law",                      dur:"10:30", link:"https://www.youtube.com/watch?v=F_vLWkkNPGU" },
-            { title:"Series & Parallel Circuits",     dur:"12:00", link:"https://www.youtube.com/watch?v=J4Vq-xHqUo8" },
-          ],
-          quiz:[
-            { q:"Ohm's Law formula:",                  opts:["V=IR","P=VI","I=VR","R=IV"], ans:0 },
-            { q:"Resistors in series — total R is:",   opts:["Less than smallest","Sum of all","Product","Average"], ans:1 },
-          ]
-        },
-        {
-          title:"Basic Components",
-          videos:[
-            { title:"Resistors & Color Code",         dur:"11:20", link:"https://www.youtube.com/watch?v=Gc_GKN5QDRY" },
-            { title:"Capacitors & Inductors",         dur:"12:44", link:"https://www.youtube.com/watch?v=X4EUwTwZ110" },
-            { title:"LEDs & Diodes",                  dur:"9:50",  link:"https://www.youtube.com/watch?v=Fwj_d3uO5g8" },
-          ],
-          quiz:[
-            { q:"A capacitor stores:",                 opts:["Charge","Light","Sound","Heat"], ans:0 },
-            { q:"LED stands for:",                     opts:["Light Emitting Diode","Low Energy Device","Linear Electronic Diode","Light Energy Driver"], ans:0 },
-          ]
-        },
-        {
-          title:"Breadboard & Arduino Intro",
-          videos:[
-            { title:"Using a Breadboard",             dur:"8:30",  link:"https://www.youtube.com/watch?v=6WReFkfrUIk" },
-            { title:"Arduino Intro & Blink",          dur:"14:00", link:"https://www.youtube.com/watch?v=fJWR7dBuc18" },
-            { title:"Connecting LEDs to Arduino",     dur:"10:15", link:"https://www.youtube.com/watch?v=VpbHhYWNjFQ" },
-          ],
-          quiz:[
-            { q:"Breadboard power rails run:",        opts:["Vertically","Horizontally","Diagonally","Random"], ans:1 },
-            { q:"Arduino Blink uses which function?", opts:["loop()","blink()","delay()","Both loop() and delay()"], ans:3 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Unit of resistance:",                    opts:["Volt","Ampere","Ohm","Watt"], ans:2 },
-        { q:"Parallel resistors — voltage is:",       opts:["Different","The same","Zero","Double"], ans:1 },
-        { q:"Diode allows current:",                  opts:["Both ways","One way only","No current","Alternating only"], ans:1 },
-        { q:"Arduino is a(n):",                       opts:["Programming language","Microcontroller board","Simulation software","PCB"], ans:1 },
-      ]
-    },
-    {
-      id:"el2", cat:"electronics", emoji:"⚡🔧", color:"pink", accent:"#e91e8c",
-      title:"Electronics — Level 2", subtitle:"Intermediate",
-      desc:"LTspice simulation, BJT amplifiers, and op-amps.",
-      sections:[
-        {
-          title:"LTspice Simulation",
-          videos:[
-            { title:"LTspice Installation & UI",      dur:"10:05", link:"https://www.youtube.com/watch?v=simulation1" },
-            { title:"Simulating an RC Circuit",       dur:"14:30", link:"https://www.youtube.com/watch?v=simulation2" },
-            { title:"AC vs DC Analysis",              dur:"11:00", link:"https://www.youtube.com/watch?v=simulation3" },
-          ],
-          quiz:[
-            { q:"DC operating point in LTspice:",     opts:[".tran",".ac",".op",".dc"], ans:2 },
-            { q:"Transient analysis shows:",          opts:["Frequency response","Time-domain behavior","DC bias","Impedance"], ans:1 },
-          ]
-        },
-        {
-          title:"BJT Amplifiers",
-          videos:[
-            { title:"BJT Regions of Operation",       dur:"12:00", link:"https://www.youtube.com/watch?v=bjt1" },
-            { title:"Common Emitter Amplifier",       dur:"15:30", link:"https://www.youtube.com/watch?v=bjt2" },
-            { title:"Gain & Clipping",                dur:"13:20", link:"https://www.youtube.com/watch?v=bjt3" },
-          ],
-          quiz:[
-            { q:"Bypass capacitor in CE amplifier:",  opts:["Increases gain","Decreases gain","No effect","Blocks AC"], ans:0 },
-            { q:"CE amplifier output phase vs input:", opts:["Same","Inverted 180°","90° shifted","Random"], ans:1 },
-          ]
-        },
-        {
-          title:"Op-Amps",
-          videos:[
-            { title:"Op-Amp Basics",                  dur:"11:00", link:"https://www.youtube.com/watch?v=opamp1" },
-            { title:"Inverting & Non-Inverting",      dur:"13:45", link:"https://www.youtube.com/watch?v=opamp2" },
-            { title:"Integrator & Differentiator",    dur:"12:10", link:"https://www.youtube.com/watch?v=opamp3" },
-          ],
-          quiz:[
-            { q:"Ideal op-amp input impedance:",      opts:["Zero","Low","Infinite","1kΩ"], ans:2 },
-            { q:"Inverting amplifier gain formula:",  opts:["-Rf/Rin","Rf/Rin","1+Rf/Rin","Rin/Rf"], ans:0 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"BJT stands for:",                        opts:["Bipolar Junction Transistor","Base Junction Terminal","Binary Junction Type","None"], ans:0 },
-        { q:"Op-amp ideal CMRR is:",                  opts:["0","1","Infinite","100dB"], ans:2 },
-        { q:"CE amplifier inverts signal by:",        opts:["45°","90°","180°","360°"], ans:2 },
-        { q:".ac analysis plots:",                    opts:["Time response","Frequency response","DC bias","Both A and B"], ans:1 },
-      ]
-    },
-    {
-      id:"el3", cat:"electronics", emoji:"⚡🖥️", color:"pink", accent:"#e91e8c",
-      title:"Electronics — Level 3", subtitle:"Advanced",
-      desc:"KiCad PCB design, manual fabrication, and professional layout.",
-      sections:[
-        {
-          title:"KiCad Schematic",
-          videos:[
-            { title:"KiCad Intro & Installation",     dur:"9:00",  link:"https://www.youtube.com/watch?v=kicad1" },
-            { title:"Schematic Capture Basics",       dur:"18:00", link:"https://www.youtube.com/watch?v=kicad2" },
-            { title:"Adding Custom Components",       dur:"14:00", link:"https://www.youtube.com/watch?v=kicad3" },
-          ],
-          quiz:[
-            { q:"ERC in KiCad means:",                opts:["Electrical Rules Check","Edit Routing Command","Export Render Config","None"], ans:0 },
-            { q:"Netlists connect:",                  opts:["Layers","Schematic to PCB","Components to power","None"], ans:1 },
-          ]
-        },
-        {
-          title:"PCB Layout & Routing",
-          videos:[
-            { title:"PCB Editor Tour",                dur:"12:00", link:"https://www.youtube.com/watch?v=kicad4" },
-            { title:"Manual & Auto Routing",          dur:"20:00", link:"https://www.youtube.com/watch?v=kicad5" },
-            { title:"Design Rule Check (DRC)",        dur:"10:30", link:"https://www.youtube.com/watch?v=kicad6" },
-          ],
-          quiz:[
-            { q:"DRC stands for:",                    opts:["Design Rule Check","Draw Route Command","Direct Render Check","None"], ans:0 },
-            { q:"Bottom copper layer in KiCad:",      opts:["F.Cu","B.Cu","In1.Cu","Edge.Cuts"], ans:1 },
-          ]
-        },
-        {
-          title:"Fabrication",
-          videos:[
-            { title:"Generating Gerber Files",        dur:"9:40",  link:"https://www.youtube.com/watch?v=kicad7" },
-            { title:"Toner Transfer & Etching",       dur:"16:00", link:"https://www.youtube.com/watch?v=kicad8" },
-            { title:"Drilling & Soldering",           dur:"14:30", link:"https://www.youtube.com/watch?v=kicad9" },
-          ],
-          quiz:[
-            { q:"FeCl₃ is used for:",                 opts:["Soldering","Etching copper","Drilling","Cleaning"], ans:1 },
-            { q:"Gerber files describe:",             opts:["3D model","Each PCB layer","Schematic only","BOM"], ans:1 },
-          ]
-        },
-      ],
-      finalQuiz:[
-        { q:"Edge.Cuts layer defines:",               opts:["Copper traces","Board outline","Silkscreen","Soldermask"], ans:1 },
-        { q:"Via connects:",                          opts:["Two pads","Two layers","Two boards","Two components"], ans:1 },
-        { q:"Minimum trace width depends on:",        opts:["Color","Current capacity","Length","None"], ans:1 },
-        { q:"BOM stands for:",                        opts:["Board Output Map","Bill of Materials","Base Output Module","None"], ans:1 },
-      ]
-    },
-  ]
-};
-
-// ═══════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════
-let activeCat = "python";
-let currentPL = null;
-const quizState = {}; // {`${plId}-s${si}-q${qi}`: selectedIndex}
-const finalState = {};
-
-// ═══════════════════════════════════════════════
-//  HOME
-// ═══════════════════════════════════════════════
-function renderHome() {
-  // tabs
-  const tabsEl = document.getElementById("cat-tabs");
-  tabsEl.innerHTML = "";
-  data.categories.forEach(cat => {
-    const btn = document.createElement("button");
-    btn.className = "cat-tab" + (cat.id === activeCat ? " active" : "");
-    if (cat.id === activeCat) btn.style.background = cat.accent;
-    btn.textContent = cat.label;
-    btn.onclick = () => { activeCat = cat.id; renderHome(); };
-    tabsEl.appendChild(btn);
-  });
-
-  // playlists for active cat
-  const pls = data.playlists.filter(p => p.cat === activeCat);
-  const grid = document.getElementById("pl-grid");
-  grid.innerHTML = "";
-  pls.forEach(pl => {
-    let totalV = 0;
-    pl.sections.forEach(s => totalV += s.videos.length);
-    const card = document.createElement("div");
-    card.className = "pl-card";
-    card.onclick = () => openPlaylist(pl.id);
-    card.innerHTML = `
-      <div class="pl-card-bar" style="background:${pl.accent}"></div>
-      <div class="pl-card-top" style="background:${pl.accent}18">${pl.emoji}</div>
-      <div class="pl-card-body">
-        <h3>${pl.title}</h3>
-        <span style="font-size:.72rem;font-weight:600;color:${pl.accent};text-transform:uppercase;letter-spacing:.1em">${pl.subtitle}</span>
-        <p>${pl.desc}</p>
-        <div class="pl-meta">
-          <span>📚 ${pl.sections.length} sections</span>
-          <span>▶ ${totalV} videos</span>
-        </div>
-        <div class="pl-arrow" style="color:${pl.accent}">
-          Open &rarr;
-        </div>
-      </div>`;
-    grid.appendChild(card);
-  });
-}
-
-// ═══════════════════════════════════════════════
-//  PLAYLIST PAGE
-// ═══════════════════════════════════════════════
-function openPlaylist(id) {
-  currentPL = data.playlists.find(p => p.id === id);
-  document.getElementById("page-home").style.display = "none";
-  document.getElementById("page-playlist").style.display = "block";
-  document.getElementById("nav-back").style.display = "flex";
-  document.getElementById("nav-logo").style.display = "none";
-  renderPlaylist();
-  window.scrollTo(0,0);
-}
-
-function showHome() {
-  document.getElementById("page-home").style.display = "block";
-  document.getElementById("page-playlist").style.display = "none";
-  document.getElementById("nav-back").style.display = "none";
-  document.getElementById("nav-logo").style.display = "flex";
-  renderHome();
-}
-
-function renderPlaylist() {
-  const pl = currentPL;
-  let totalV = 0; pl.sections.forEach(s => totalV += s.videos.length);
-
-  // hero
-  document.getElementById("pl-hero").innerHTML = `
-    <p class="pl-hero-eye" style="color:${pl.accent}">${pl.emoji} ${pl.title}</p>
-    <h1>${pl.title}</h1>
-    <p>${pl.desc}</p>
-    <div class="pl-hero-stats">
-      <span><strong>${pl.sections.length}</strong>&nbsp;Sections</span>
-      <span><strong>${totalV}</strong>&nbsp;Videos</span>
-      <span><strong>${pl.finalQuiz.length}</strong>&nbsp;Final exam questions</span>
-    </div>`;
-
-  // sections
-  const wrap = document.getElementById("sections-wrap");
-  wrap.innerHTML = "";
-  pl.sections.forEach((sec, si) => {
-    const block = document.createElement("div");
-    block.className = "sec-block";
-
-    let videosHTML = sec.videos.map((v,vi) => `
-      <a class="video-item" href="${v.link}" target="_blank" rel="noopener">
-        <div class="vid-icon" style="background:${pl.accent}">
-          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="vid-info">
-          <h4>${v.title}</h4>
-          <span>${v.dur}</span>
-        </div>
-        <span class="vid-ext">↗</span>
-      </a>`).join("");
-
-    block.innerHTML = `
-      <div class="sec-hdr">
-        <div class="sec-num" style="background:${pl.accent}">${si+1}</div>
-        <h3>${sec.title}</h3>
+  <nav class="nav-bar">
+    <div class="logo-container" id="nav-logo" onclick="showHome()">
+      <div class="logo-waves">
+        <span class="logo-wave-item" style="background: var(--pink);"></span>
+        <span class="logo-wave-item" style="background: var(--orange);"></span>
+        <span class="logo-wave-item" style="background: var(--blue);"></span>
       </div>
-      <div>${videosHTML}</div>
-      <div class="quiz-wrap">${buildQuiz(pl.id, si, sec.quiz, pl.accent, false)}</div>`;
-    wrap.appendChild(block);
-  });
-
-  // final exam
-  const finalEl = document.getElementById("final-wrap");
-  finalEl.style.border = `2px solid ${pl.accent}44`;
-  finalEl.innerHTML = `
-    <div class="final-hdr" style="background:${pl.accent}12;border-bottom:1px solid ${pl.accent}33">
-      <span style="font-size:1.3rem">🏆</span>
-      <h2 style="color:${pl.accent}">Final Course Exam</h2>
-      <span style="font-size:.78rem;color:var(--dim);margin-left:auto">${pl.finalQuiz.length} questions</span>
+      <div class="logo-text">magnum</div>
     </div>
-    <div class="final-body">${buildQuiz(pl.id, 'final', pl.finalQuiz, pl.accent, true)}</div>`;
-}
+    
+    <div class="nav-right-zone">
+      <div class="nav-tabs" id="categories-container">
+        </div>
+      <button class="btn-back" id="nav-back" onclick="showHome()">
+        ← Back to Home
+      </button>
+    </div>
+  </nav>
 
-// ═══════════════════════════════════════════════
-//  QUIZ BUILDER
-// ═══════════════════════════════════════════════
-function buildQuiz(plId, secId, questions, accent, isFinal) {
-  const prefix = `${plId}-${secId}`;
-  let html = `<div class="quiz-title"><span>${isFinal ? '🏆' : '🧠'}</span> ${isFinal ? 'Final Exam' : 'Section Quiz'}</div>`;
-  questions.forEach((q, qi) => {
-    html += `<div class="quiz-q">
-      <p>${qi+1}. ${q.q}</p>
-      <div class="quiz-options">`;
-    q.opts.forEach((opt, oi) => {
-      html += `<button class="quiz-opt" id="qo-${prefix}-${qi}-${oi}"
-        onclick="selectOpt('${prefix}',${qi},${oi},${q.ans},'${accent}',${questions.length})">${opt}</button>`;
+  <main class="container">
+
+    <div id="page-home" class="page-view active">
+      <section class="hero">
+        <p class="hero-eyebrow">Magnum Egypt</p>
+        <h1>Master the Skills of <br><span style="color: var(--blue)">Code</span>, <span style="color: var(--orange)">Logic</span> &amp; <span style="color: var(--pink)">Hardware</span></h1>
+        <p class="hero-desc">High-quality curriculum educational tracks designed professionally without complex external monitoring systems.</p>
+        <div class="hero-stripe-line">
+          <span style="background: var(--blue)"></span>
+          <span style="background: var(--orange)"></span>
+          <span style="background: var(--pink)"></span>
+        </div>
+      </section>
+
+      <div class="grid-layout" id="playlists-container">
+        </div>
+    </div>
+
+    <div id="page-playlist" class="page-view">
+      <div id="playlist-header-target">
+        </div>
+      <div class="curriculum-flow" id="playlist-modules-target">
+        </div>
+    </div>
+
+  </main>
+
+  <footer class="footer-bar">
+    <div class="footer-left">
+      <div class="footer-logo-simulation">
+        <span style="background: var(--pink);"></span>
+        <span style="background: var(--orange);"></span>
+        <span style="background: var(--blue);"></span>
+      </div>
+      <div class="footer-copy">&copy; 2026 Magnum Egypt</div>
+    </div>
+    <div class="footer-stripes">
+      <span style="background: var(--blue)"></span>
+      <span style="background: var(--orange)"></span>
+      <span style="background: var(--pink)"></span>
+    </div>
+  </footer>
+
+  <script>
+    // Canonical Application State and Course Matrix
+    const data = {
+      categories: [
+        { id: "all", label: "All Curriculums", color: "dark", accent: "var(--dark)" },
+        { id: "py", label: "🐍 Python", color: "blue", accent: "var(--blue)" },
+        { id: "sc", label: "🎮 Scratch", color: "orange", accent: "var(--orange)" },
+        { id: "el", label: "⚡ Electronics", color: "pink", accent: "var(--pink)" }
+      ],
+      playlists: [
+        {
+          id: "py1",
+          cat: "py",
+          emoji: "🐍",
+          color: "blue",
+          accent: "var(--blue)",
+          title: "Python Level 1",
+          subtitle: "Beginner",
+          desc: "Establish foundational programming constructs utilizing standard execution tracks, expressions, and primitive processing frameworks.",
+          sections: [
+            {
+              title: "Syntax Configurations & Execution Channels",
+              videos: [
+                { title: "Initialization Configurations and Compilation Variables", dur: "14:20", link: "https://www.youtube.com/watch?v=rfscVS0vtbw" },
+                { title: "Scalar Variables, Mutation Principles, and Primitives", dur: "18:45", link: "https://www.youtube.com/watch?v=khKv-8q7YmY" }
+              ],
+              quiz: [
+                { q: "Which core paradigm correctly describes an initialization state assignment configuration?", opts: ["mut x = 10", "x := 10", "x = 10", "int x -> 10"], ans: 2 },
+                { q: "What primary scalar object primitive type evaluates to strict True or False structural values?", opts: ["String", "Boolean", "Float", "Integer"], ans: 1 }
+              ]
+            },
+            {
+              title: "Conditional Matrix Branches & Logical Operations",
+              videos: [
+                { title: "Logical Evaluations, Structural Comparisons & Switch-States", dur: "22:10", link: "https://www.youtube.com/watch?v=Zp5MuPOgdQ0" }
+              ],
+              quiz: [
+                { q: "Which statement processes execution branching chains conditional on subsequent evaluations?", opts: ["elif", "else if", "otherwise", "then"], ans: 0 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "Which primitive statement output validation configuration runs by default inside raw native instances?", opts: ["print()", "console.log()", "System.out.println()", "echo"], ans: 0 },
+            { q: "Identify the processing system responsible for tracking native runtimes directly without prior binaries.", opts: ["Compiler", "Linker", "Interpreter", "Assembler"], ans: 2 }
+          ]
+        },
+        {
+          id: "py2",
+          cat: "py",
+          emoji: "🐍",
+          color: "blue",
+          accent: "var(--blue)",
+          title: "Python Level 2",
+          subtitle: "Intermediate",
+          desc: "Manipulate composite algorithmic states, reference abstract collections arrays, and isolate clean procedural abstractions.",
+          sections: [
+            {
+              title: "Composite Array Collections & Iterable Iterators",
+              videos: [
+                { title: "Dynamic Arrays, In-Memory Indices & Linear Multi-Mutations", dur: "25:30", link: "https://www.youtube.com/watch?v=9OeznAkyQz4" },
+                { title: "Bounded Immutable Multi-Element Key-Value Pair Hashes", dur: "19:15", link: "https://www.youtube.com/watch?v=daefaLgJAkw" }
+              ],
+              quiz: [
+                { q: "Which syntax signature describes a key-value native dictionary collection structure?", opts: ["[]", "{}", "()", "<>"], ans: 1 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "What mutation outcome is natively expected when processing mutations on strict immutable Tuples?", opts: ["Silent Append", "Type Exception", "Dynamic Reallocation", "Auto-conversion"], ans: 1 }
+          ]
+        },
+        {
+          id: "sc1",
+          cat: "sc",
+          emoji: "🎮",
+          color: "orange",
+          accent: "var(--orange)",
+          title: "Scratch Level 1",
+          subtitle: "Beginner",
+          desc: "Discover abstract algorithmic design sequences using visual code interfaces and localized linear event bindings.",
+          sections: [
+            {
+              title: "Visual Trigger Frameworks & Direction Transformations",
+              videos: [
+                { title: "Interface Architecture and Execution Triggers", dur: "11:12", link: "https://www.youtube.com/watch?v=mGf8m4s7MQA" },
+                { title: "Coordinate Transforms, Step Vectors & Grid Axes", dur: "15:40", link: "https://www.youtube.com/watch?v=2Tz7Sg_fshg" }
+              ],
+              quiz: [
+                { q: "Which color code signature groups operational execution signals triggered by environmental UI inputs?", opts: ["Blue Controls", "Yellow Events", "Green Operators", "Purple Looks"], ans: 1 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "What event node blocks are foundational to establishing a programmatic system boot initialization sequence?", opts: ["When Key Pressed", "When Green Flag Clicked", "When Backdrops Change", "When Timer Exceeds"], ans: 1 }
+          ]
+        },
+        {
+          id: "sc2",
+          cat: "sc",
+          emoji: "🎮",
+          color: "orange",
+          accent: "var(--orange)",
+          title: "Scratch Level 2",
+          subtitle: "Intermediate",
+          desc: "Implement continuous asynchronous validation loops, conditional environmental sensing matrices, and clean message notifications.",
+          sections: [
+            {
+              title: "Asynchronous Evaluation Cycles & Thread Loops",
+              videos: [
+                { title: "Indefinite Integration and Interrupt Monitoring Loops", dur: "18:22", link: "https://www.youtube.com/watch?v=uKbe0fVfF0Q" }
+              ],
+              quiz: [
+                { q: "Which operational block loops instructions continuously through runtime without finite termination metrics?", opts: ["Repeat 10", "Repeat Until", "Forever Block", "If-Then-Else"], ans: 2 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "How do parallel event threads exchange states globally inside a single tracking instance without variable writes?", opts: ["Thread Forking", "Broadcast Messages", "Local Sub-routines", "Asset Swapping"], ans: 1 }
+          ]
+        },
+        {
+          id: "sc3",
+          cat: "sc",
+          emoji: "🎮",
+          color: "orange",
+          accent: "var(--orange)",
+          title: "Scratch Level 3",
+          subtitle: "Advanced",
+          desc: "Architect complex procedural configurations via dynamic custom blocks, and leverage systemic operational math arrays.",
+          sections: [
+            {
+              title: "Custom Operational Functions & Dynamic Vectors",
+              videos: [
+                { title: "Parametric Sub-routine Design & Non-Leaking Function Blocks", dur: "24:05", link: "https://www.youtube.com/watch?v=83M6S746F9w" }
+              ],
+              quiz: [
+                { q: "What major efficiency value is achieved by engineering modular custom runtime procedural blocks?", opts: ["Cloud Syncing", "DRY Abstraction Reuse", "Resolution Scaling", "Hardware Overclocking"], ans: 1 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "Which operator block option enables validation parsing across combined computational inputs simultaneously?", opts: ["And/Or Blocks", "Join Strings", "Modulus Calculations", "Absolute Values"], ans: 0 }
+          ]
+        },
+        {
+          id: "el1",
+          cat: "el",
+          emoji: "⚡",
+          color: "pink",
+          accent: "var(--pink)",
+          title: "Electronics Level 1",
+          subtitle: "Beginner",
+          desc: "Acquire systematic mastery over foundational hardware circuits, Ohm's law operations, and analog structural connections.",
+          sections: [
+            {
+              title: "Basic Hardware Architecture & Energy Paths",
+              videos: [
+                { title: "Potential Differences, Electron Tracks, and Currents", dur: "20:15", link: "https://www.youtube.com/watch?v=1xPjES-sHwg" },
+                { title: "Resistive Materials, Operational Diodes & Load Protections", dur: "22:40", link: "https://www.youtube.com/watch?v=Gc1wVbixfHA" }
+              ],
+              quiz: [
+                { q: "Which mathematical formula properly governs circuit relationships under static environmental configurations?", opts: ["P = IV", "V = IR", "F = MA", "E = MC²"], ans: 1 },
+                { q: "What critical system failure occurs if a voltage source links directly back to common ground without inline loads?", opts: ["Open Impedance", "Resistive Shift", "Short Circuit", "Capacitive Saturation"], ans: 2 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "What primary unit metric tracks electrical charge flow rates traversing fixed cross-sections per second?", opts: ["Volts", "Ohms", "Amperes", "Farads"], ans: 2 }
+          ]
+        },
+        {
+          id: "el2",
+          cat: "el",
+          emoji: "⚡",
+          color: "pink",
+          accent: "var(--pink)",
+          title: "Electronics Level 2",
+          subtitle: "Intermediate",
+          desc: "Prototype structural sensor frameworks on schematic nodes using physical prototyping breadboards.",
+          sections: [
+            {
+              title: "Prototyping Frameworks & Parallel Matrix Wiring",
+              videos: [
+                { title: "Internal Rail Architectures and Node Grid Continuities", dur: "19:50", link: "https://www.youtube.com/watch?v=6WReFkAy0Dg" }
+              ],
+              quiz: [
+                { q: "How are the central lateral rows on standard prototyping breadboards linked under structural frameworks?", opts: ["Vertical Columns", "Horizontal Multi-nodes", "Diagonal Matrices", "Isolated Independent Points"], ans: 1 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "When wiring discrete LEDs into electrical circuit structures, which terminal matches the positive anode?", opts: ["Shorter Pin", "Flat Notch Side", "Longer Pin", "Internal Large Frame Plate"], ans: 2 }
+          ]
+        },
+        {
+          id: "el3",
+          cat: "el",
+          emoji: "⚡",
+          color: "pink",
+          accent: "var(--pink)",
+          title: "Electronics Level 3",
+          subtitle: "Advanced",
+          desc: "Design complex processing frameworks utilizing integrated logic gates, microcontrollers, and digital bus architectures.",
+          sections: [
+            {
+              title: "Integrated Logic Matrix & Digital Bus Systems",
+              videos: [
+                { title: "Binary Signals, High-Low Threshold States & Gate Arrays", dur: "31:10", link: "https://www.youtube.com/watch?v=gI-qXJKFlRA" }
+              ],
+              quiz: [
+                { q: "Which specific logic gate node requires all operational inputs to evaluate high for execution to flow high?", opts: ["OR", "NAND", "AND", "XOR"], ans: 2 }
+              ]
+            }
+          ],
+          finalQuiz: [
+            { q: "What duty-cycle signal manipulation method processes variable analog outputs from rigid digital microcontrollers?", opts: ["ADC Processing", "PWM Modulation", "UART Handshaking", "I2C Addressing"], ans: 1 }
+          ]
+        }
+      ]
+    };
+
+    // Client Execution States
+    let activeCat = "all";
+    const quizState = {};
+
+    // Layout References
+    const domHome = document.getElementById("page-home");
+    const domPlaylist = document.getElementById("page-playlist");
+    const domNavBack = document.getElementById("nav-back");
+    const catContainer = document.getElementById("categories-container");
+    const plContainer = document.getElementById("playlists-container");
+    const plHeaderTarget = document.getElementById("playlist-header-target");
+    const plModulesTarget = document.getElementById("playlist-modules-target");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderCategoryTabs();
+      renderPlaylistGrid();
     });
-    html += `</div></div>`;
-  });
-  html += `<button class="quiz-submit" id="qs-${prefix}" style="background:${accent}"
-    onclick="submitQuiz('${prefix}',${JSON.stringify(questions).replace(/'/g,"\\'")},'${accent}')" disabled>
-    Submit ${isFinal ? 'Final Exam' : 'Quiz'}
-  </button>`;
-  html += `<div class="quiz-result" id="qr-${prefix}"></div>`;
-  return html;
-}
 
-function selectOpt(prefix, qi, oi, correct, accent, total) {
-  const key = `${prefix}-${qi}`;
-  quizState[key] = oi;
+    // Populate Top Navigation Tab Controls
+    function renderCategoryTabs() {
+      catContainer.innerHTML = data.categories.map(cat => {
+        const isActive = cat.id === activeCat ? "active" : "";
+        return `
+          <button 
+            class="nav-tab-pill ${isActive}" 
+            data-id="${cat.id}" 
+            data-color="${cat.color}"
+            onclick="setCategoryFilter('${cat.id}')">
+            ${cat.label}
+          </button>
+        `;
+      }).join('');
+    }
 
-  // style options
-  const q = data.playlists.flatMap(p => [...p.sections.map(s=>s.quiz), [p.finalQuiz]]).flat();
-  // just style visually
-  for (let x = 0; x < 10; x++) {
-    const btn = document.getElementById(`qo-${prefix}-${qi}-${x}`);
-    if (!btn) break;
-    btn.classList.remove("selected");
-    btn.style.borderColor = "";
-    btn.style.background = "";
-  }
-  const sel = document.getElementById(`qo-${prefix}-${qi}-${oi}`);
-  if (sel) { sel.style.borderColor = accent; sel.style.background = accent+"22"; }
+    function setCategoryFilter(catId) {
+      activeCat = catId;
+      renderCategoryTabs();
+      renderPlaylistGrid();
+      showHome();
+    }
 
-  // check all answered
-  let all = true;
-  for (let q2 = 0; q2 < total; q2++) {
-    if (quizState[`${prefix}-${q2}`] === undefined) { all = false; break; }
-  }
-  const sub = document.getElementById(`qs-${prefix}`);
-  if (sub) sub.disabled = !all;
-}
+    // Populate Main Course Grid Architecture
+    function renderPlaylistGrid() {
+      const targetDataset = activeCat === "all" 
+        ? data.playlists 
+        : data.playlists.filter(p => p.cat === activeCat);
 
-function submitQuiz(prefix, questions, accent) {
-  let correct = 0;
-  questions.forEach((q, qi) => {
-    const sel = quizState[`${prefix}-${qi}`];
-    q.opts.forEach((_, oi) => {
-      const btn = document.getElementById(`qo-${prefix}-${qi}-${oi}`);
-      if (!btn) return;
-      btn.disabled = true;
-      btn.style.borderColor = ""; btn.style.background = "";
-      if (oi === q.ans) btn.classList.add("correct");
-      else if (oi === sel && sel !== q.ans) btn.classList.add("wrong");
-    });
-    if (sel === q.ans) correct++;
-  });
-  const sub = document.getElementById(`qs-${prefix}`);
-  if (sub) sub.disabled = true;
-  const res = document.getElementById(`qr-${prefix}`);
-  const pct = Math.round((correct/questions.length)*100);
-  res.className = correct === questions.length ? "quiz-result pass" : "quiz-result fail";
-  res.textContent = correct === questions.length
-    ? `🎉 Perfect! ${correct}/${questions.length} (${pct}%)`
-    : `${correct}/${questions.length} correct (${pct}%) — review and try again!`;
-}
+      if (targetDataset.length === 0) {
+        plContainer.innerHTML = `<div style="grid-column: 1/-1; padding: 4rem; text-align: center; color: var(--dim)">No playlists configured.</div>`;
+        return;
+      }
 
-// ── INIT ──
-renderHome();
-</script>
+      plContainer.innerHTML = targetDataset.map(pl => {
+        let categoryColorHex = "var(--dark)";
+        if(pl.color === "blue") categoryColorHex = "var(--blue)";
+        if(pl.color === "orange") categoryColorHex = "var(--orange)";
+        if(pl.color === "pink") categoryColorHex = "var(--pink)";
+
+        let videoCounter = 0;
+        pl.sections.forEach(s => videoCounter += s.videos.length);
+
+        return `
+          <article class="course-card" onclick="openPlaylist('${pl.id}')">
+            <div class="card-accent-bar" style="background: ${categoryColorHex}"></div>
+            <div class="card-body">
+              <div class="card-emoji-box">${pl.emoji}</div>
+              <h3 class="card-title">${pl.title}</h3>
+              <span class="badge-level">${pl.subtitle}</span>
+              <p class="card-desc">${pl.desc}</p>
+              <div class="card-footer">
+                <div class="card-footer-meta">
+                  <span>${pl.sections.length} Sections</span>
+                  <span>•</span>
+                  <span>${videoCounter} Videos</span>
+                </div>
+                <div class="card-arrow" style="color: ${categoryColorHex}">→</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Navigation Switch Logic
+    function openPlaylist(id) {
+      const pl = data.playlists.find(p => p.id === id);
+      if (!pl) return;
+
+      domHome.classList.remove("active");
+      domPlaylist.classList.add("active");
+      domNavBack.style.display = "flex";
+      catContainer.style.display = "none"; // Hide tabs when tracking internal syllabus views
+
+      renderPlaylistDetailView(pl);
+      window.scrollTo(0, 0);
+    }
+
+    function showHome() {
+      domPlaylist.classList.remove("active");
+      domHome.classList.add("active");
+      domNavBack.style.display = "none";
+      catContainer.style.display = "flex"; // Restore standard layout controls safely
+      renderPlaylistGrid();
+      window.scrollTo(0, 0);
+    }
+
+    // Process Selected Course Detail Output View
+    function renderPlaylistDetailView(pl) {
+      let totalVideos = 0;
+      pl.sections.forEach(s => totalVideos += s.videos.length);
+      
+      let categoryColorHex = "var(--dark)";
+      if(pl.color === "blue") categoryColorHex = "var(--blue)";
+      if(pl.color === "orange") categoryColorHex = "var(--orange)";
+      if(pl.color === "pink") categoryColorHex = "var(--pink)";
+
+      plHeaderTarget.innerHTML = `
+        <div class="playlist-hero">
+          <div class="pl-hero-emoji">${pl.emoji}</div>
+          <div class="pl-hero-info">
+            <h1 class="pl-title">${pl.title}</h1>
+            <p class="pl-desc">${pl.desc}</p>
+            <div class="pl-stats-row">
+              <div class="pl-stat-node">
+                <span class="pl-stat-val">${pl.sections.length}</span>
+                <span class="pl-stat-lbl">Modules</span>
+              </div>
+              <div class="pl-stat-node">
+                <span class="pl-stat-val">${totalVideos}</span>
+                <span class="pl-stat-lbl">Videos</span>
+              </div>
+              <div class="pl-stat-node">
+                <span class="pl-stat-val">${pl.finalQuiz.length}</span>
+                <span class="pl-stat-lbl">Exam Questions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      let modulesHTML = "";
+
+      pl.sections.forEach((sec, sIdx) => {
+        const videosHTML = sec.videos.map(vid => `
+          <a href="${vid.link}" target="_blank" class="video-node" rel="noopener noreferrer">
+            <div class="video-play-ring" style="background: ${categoryColorHex}; color: ${pl.color === 'pink' ? 'var(--white)' : 'var(--dark)'}">▶</div>
+            <div class="video-details">
+              <span class="video-name">${vid.title}</span>
+              <span class="video-runtime">${vid.dur} <span class="video-external-icon">↗</span></span>
+            </div>
+          </a>
+        `).join('');
+
+        const quizHTML = sec.quiz.map((qObj, qIdx) => {
+          const stateKey = `${pl.id}-${sIdx}-${qIdx}`;
+          const currentSelection = quizState[stateKey];
+
+          const optionsHTML = qObj.opts.map((opt, oIdx) => {
+            const isSelected = currentSelection === oIdx;
+            const styleAttr = isSelected 
+              ? `style="background: ${categoryColorHex}; color: ${pl.color === 'pink' ? 'var(--white)' : 'var(--dark)'}; border-color: ${categoryColorHex}; font-weight: 600;"` 
+              : '';
+            return `
+              <button class="opt-btn" ${styleAttr} onclick="handleQuizSelection('${pl.id}', ${sIdx}, ${qIdx}, ${oIdx})">
+                ${opt}
+              </button>
+            `;
+          }).join('');
+
+          return `
+            <div class="quiz-item">
+              <p class="quiz-prompt">Q${qIdx + 1}: ${qObj.q}</p>
+              <div class="quiz-options-matrix">${optionsHTML}</div>
+            </div>
+          `;
+        }).join('');
+
+        modulesHTML += `
+          <section class="section-block">
+            <div class="section-header">
+              <div class="section-index-ring" style="background: ${categoryColorHex}; color: ${pl.color === 'pink' ? 'var(--white)' : 'var(--dark)'}">${sIdx + 1}</div>
+              <h2 class="section-title">${sec.title}</h2>
+            </div>
+            <div class="video-stack">
+              ${videosHTML}
+            </div>
+            <div class="assessment-block">
+              <div class="assessment-title">Section Verification Quiz</div>
+              ${quizHTML}
+            </div>
+          </section>
+        `;
+      });
+
+      // Comprehensive Final Exam Rendering Block
+      const finalExamStateKeyPrefix = `${pl.id}-final`;
+      const finalExamHTML = pl.finalQuiz.map((qObj, qIdx) => {
+        const stateKey = `${finalExamStateKeyPrefix}-${qIdx}`;
+        const currentSelection = quizState[stateKey];
+
+        const optionsHTML = qObj.opts.map((opt, oIdx) => {
+          const isSelected = currentSelection === oIdx;
+          const styleAttr = isSelected 
+            ? `style="background: ${categoryColorHex}; color: ${pl.color === 'pink' ? 'var(--white)' : 'var(--dark)'}; border-color: ${categoryColorHex}; font-weight: 600;"` 
+              : '';
+          return `
+            <button class="opt-btn" ${styleAttr} onclick="handleFinalQuizSelection('${pl.id}', ${qIdx}, ${oIdx})">
+              ${opt}
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <div class="quiz-item" style="text-align: left; margin-bottom: 2rem;">
+            <p class="quiz-prompt">Exam Q${qIdx + 1}: ${qObj.q}</p>
+            <div class="quiz-options-matrix">${optionsHTML}</div>
+          </div>
+        `;
+      }).join('');
+
+      modulesHTML += `
+        <article class="capstone-card">
+          <div class="capstone-icon">🏆</div>
+          <h2 class="capstone-title">${pl.title} Comprehensive Final Certification Exam</h2>
+          <p class="capstone-desc">Complete all module tracks above before validating comprehensive logic matrices here.</p>
+          <div style="margin-top: 2.5rem;">
+            ${finalExamHTML}
+          </div>
+        </article>
+      `;
+
+      plModulesTarget.innerHTML = modulesHTML;
+    }
+
+    // Save Selected Options to Local Instance Arrays Safely
+    function handleQuizSelection(plId, sIdx, qIdx, oIdx) {
+      const stateKey = `${plId}-${sIdx}-${qIdx}`;
+      quizState[stateKey] = oIdx;
+      
+      const pl = data.playlists.find(p => p.id === plId);
+      renderPlaylistDetailView(pl);
+    }
+
+    // Save Final Selected Exam Options 
+    function handleFinalQuizSelection(plId, qIdx, oIdx) {
+      const stateKey = `${plId}-final-${qIdx}`;
+      quizState[stateKey] = oIdx;
+      
+      const pl = data.playlists.find(p => p.id === plId);
+      renderPlaylistDetailView(pl);
+    }
+  </script>
 </body>
 </html>
